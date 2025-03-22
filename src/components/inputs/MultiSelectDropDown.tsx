@@ -10,7 +10,6 @@ const MultiSelectDropDown = ({ onChange, options }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
   const [availableOptions, setAvailableOptions] = useState(options);
-
   const [inputValue, setInputValue] = useState<string>("");
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -26,6 +25,7 @@ const MultiSelectDropDown = ({ onChange, options }: Props) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
   useEffect(() => {
     if (inputValue.trim()) {
       const tmp = options.filter((item) =>

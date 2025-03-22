@@ -1,18 +1,20 @@
 # Lobox Assignment
-This assignment was built with pure React instead of Next.js due to the lack of routing requirements and other related needs
+
+This assignment was built with pure React instead of Next.js due to the lack of routing requirements and other related needs , TypeScript, and SCSS without relying on any external packages for styling, styled components, or icons. The focus is on creating a clean and efficient implementation using only these technologies (React and SCSS).
+
+## Assignment details
 
 Implement a multi drop-down select component with the ability to add new items by typing it in an input and pressing Enter. It should be closed by clicking outside of it.
 
-
 Requirements:
 
-  - Use ReactJS
+- Use ReactJS
 
-  - Make the code reusable
+- Make the code reusable
 
-  - Use TypeScript
+- Use TypeScript
 
-  - Use SCSS, and try to implement it similarly to the image as much as possible.
+- Use SCSS, and try to implement it similarly to the image as much as possible.
 
 In the project directory, you can run:
 
