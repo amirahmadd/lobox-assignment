@@ -1,0 +1,97 @@
+.container {
+  width: 300px;
+  color: #5a5a5a;
+  font-size: 16px;
+  font-weight: 500;
+}
+.multi-select-dropdown {
+  position: relative;
+  width: 100%;
+  font-size: 16px;
+
+  .input-box {
+    background-color: white;
+    overflow: hidden;
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // padding: 5px;
+    border: 1px solid #cccccc95;
+    cursor: pointer;
+    user-select: none;
+  }
+  .active-input-box {
+    border: 2px solid #3131fc77;
+    box-shadow: 0 0 2px 2px #3131fc37;
+    // border-color: #5a5a5a;
+  }
+  .active-arrow {
+    rotate: 180deg;
+    position: relative;
+    top: -5px;
+  }
+
+  .selected-options {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    padding-right: 10px;
+    padding-left: 10px;
+    overflow: hidden;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    width: 100%;
+    max-height: 150px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #cccccc95;
+    border-radius: 10px;
+    margin-top: 5px;
+    list-style: none;
+    padding: 0;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    li {
+      padding: 8px;
+      padding-right: 10px;
+      padding-left: 10px;
+      margin: 4px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    .selected {
+      background-color: #5c72ff12;
+      color: #465ef9e8;
+    }
+  }
+}
+
+.App-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
