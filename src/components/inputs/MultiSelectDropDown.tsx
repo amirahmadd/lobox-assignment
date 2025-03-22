@@ -96,7 +96,7 @@ const MultiSelectDropDown = ({ onChange, options }: Props) => {
               setIsOpen(true);
             }}
             onKeyDown={handleInputEnter}
-            placeholder="Type to add..."
+            placeholder="Search..."
           />
         </div>
         <div className={isOpen ? "active-arrow" : ""}>
