@@ -9,6 +9,8 @@ interface Props {
 const MultiSelectDropDown = ({ onChange, options }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<Option[]>([]);
+  const [availableOptions, setAvailableOptions] = useState(options);
+
   const [inputValue, setInputValue] = useState<string>("");
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -24,6 +26,19 @@ const MultiSelectDropDown = ({ onChange, options }: Props) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+  useEffect(() => {
+    if (inputValue.trim()) {
+      const tmp = options.filter((item) =>
+        item.label
+          .trim()
+          .toLowerCase()
+          .includes(inputValue.trim().toLowerCase())
+      );
+      setAvailableOptions(tmp);
+    } else {
+      setAvailableOptions(options);
+    }
+  }, [inputValue, options]);
 
   const isSelected = (option: Option) => {
     return selectedOptions.find((item) => item.id === option.id);
@@ -51,9 +66,20 @@ const MultiSelectDropDown = ({ onChange, options }: Props) => {
       tmp = handleAddNewOption(option);
     }
     onChange(tmp);
-    setInputValue(tmp.map((item) => item.label).join(","));
+    setInputValue("");
   };
 
+  const handleInputEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && inputValue.trim()) {
+      if (availableOptions.length) {
+        handleSelectOption(availableOptions[0]);
+      } else {
+        window.alert(
+          "No options found matching the given text. Please try again."
+        );
+      }
+    }
+  };
   return (
     <div className="multi-select-dropdown" ref={dropdownRef}>
       <div
@@ -61,7 +87,17 @@ const MultiSelectDropDown = ({ onChange, options }: Props) => {
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="selected-options">
-          {inputValue ? inputValue : "Select Options"}
+          <input
+            className="input"
+            type="text"
+            value={inputValue}
+            onChange={(e) => {
+              setInputValue(e.target.value);
+              setIsOpen(true);
+            }}
+            onKeyDown={handleInputEnter}
+            placeholder="Type to add..."
+          />
         </div>
         <div className={isOpen ? "active-arrow" : ""}>
           <img src={arrowIcon} alt="^" />
@@ -69,16 +105,20 @@ const MultiSelectDropDown = ({ onChange, options }: Props) => {
       </div>
       {isOpen && (
         <ul className="dropdown-menu">
-          {options.map((option) => (
-            <li
-              key={option.id}
-              className={isSelected(option) ? "selected" : ""}
-              onClick={() => handleSelectOption(option)}
-            >
-              <div>{option.label}</div>
-              {isSelected(option) ? <div>✓</div> : null}
-            </li>
-          ))}
+          {availableOptions.length ? (
+            availableOptions.map((option) => (
+              <li
+                key={option.id}
+                className={isSelected(option) ? "selected" : ""}
+                onClick={() => handleSelectOption(option)}
+              >
+                <div>{option.label}</div>
+                {isSelected(option) ? <div>✓</div> : null}
+              </li>
+            ))
+          ) : (
+            <li>No Option found</li>
+          )}
         </ul>
       )}
     </div>
